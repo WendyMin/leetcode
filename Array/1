@@ -10,7 +10,14 @@ Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
 */
 
-//考虑0+0=0，负数的情况
+
+
+
+
+/* 
+    48 ms
+    考虑0+0=0，负数的情况
+*/
 class Solution {
     public int[] twoSum(int[] nums, int target) {
         int[] ans = new int[2];
@@ -25,6 +32,60 @@ class Solution {
                     ans[1] = j;
                     break;
                 }
+            }
+        }
+        return ans;
+    }
+}
+
+
+
+
+
+/*
+	6ms
+	Arrays.copyOf(): 复制数组
+	Arrays.sort(): 按从小到大排序
+*/
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+	    int[] nums2 = Arrays.copyOf(nums, nums.length);		//copyOf: 复制！！！
+	    Arrays.sort(nums2);									//sort: 排序！！！从小到大
+		int start = 0, end = nums.length - 1;	
+        int n1 = 0, n2 = 0;									//存取得到的两个数
+        while(start < end)
+        {
+            if(nums2[start] + nums2[end] < target)
+            {
+                start++;
+            }
+            else if(nums2[start] + nums2[end] > target)
+            {
+                end--;
+            }
+            else
+            {
+                n1 = nums2[start];
+                n2 = nums2[end];
+                break;
+            }
+        }
+        
+        int[] ans = new int[2];								//在原数组中找到得到的两个数n1,n2所对应的位置
+        for(int i = 0; i < nums.length; i++)
+        {
+            if(nums[i] == n1)
+            {
+                ans[0] = i;
+                break;
+            }
+        }
+        for(int i = 0; i < nums.length; i++)
+        {
+            if(nums[i] == n2 && i != ans[0])
+            {
+                ans[1] = i;
+                break;
             }
         }
         return ans;
