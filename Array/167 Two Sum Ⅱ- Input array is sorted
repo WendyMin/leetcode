@@ -34,3 +34,55 @@ class Solution {
         return ans;   //return new int[] { i+1, j+1 };
     }
 }
+
+
+
+
+
+/*
+	0ms
+	BinarySearch: 二分法
+  不太懂，BinarySearch的return两个类型都不同
+*/
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        /* Binary Search : Search for the complement on left and right 
+        side using nbinary search twice.
+        TC : O(n)
+        SC : O(1)
+        */
+        int left = 0, right = numbers.length;
+        while(left < right){
+            int complement = target - numbers[left];
+            // find the index of the largest number less than or equal to the complement
+            right = BinarySearch(numbers, complement, false, left + 1, right - 1);
+            if(complement == numbers[right])
+                break;
+            
+            complement = target - numbers[right];
+            // find the smallest number equal to or larger than complement
+            left = BinarySearch(numbers, complement, true, left+1, right - 1);
+            if(complement == numbers[left])
+                break;
+        } // end of while 
+        return new int[] {left+1, right+1};
+    } // end of twoSum
+    
+    
+    public int BinarySearch(int[] numbers, int complement, boolean large, int left, int right){
+        if(left == right)
+            return left;
+        while(left<=right){
+            int mid = (left + right)/2;
+            if(numbers[mid] == complement)
+                return mid;
+            if(numbers[mid] < complement)
+                left = mid+1;
+            if(numbers[mid] > complement)
+                right = mid-1;
+        }
+        int mid = (left+right)/2;
+        return large && mid < right ? mid +1 : mid;
+    }
+    
+}
