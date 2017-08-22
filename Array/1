@@ -50,9 +50,9 @@ class Solution {
 class Solution {
     public int[] twoSum(int[] nums, int target) {
 	    int[] nums2 = Arrays.copyOf(nums, nums.length);		//copyOf: 复制！！！
-	    Arrays.sort(nums2);									//sort: 排序！！！从小到大
+	    Arrays.sort(nums2);						//sort: 排序！！！从小到大
 		int start = 0, end = nums.length - 1;	
-        int n1 = 0, n2 = 0;									//存取得到的两个数
+        int n1 = 0, n2 = 0;						//存取得到的两个数
         while(start < end)
         {
             if(nums2[start] + nums2[end] < target)
@@ -71,7 +71,7 @@ class Solution {
             }
         }
         
-        int[] ans = new int[2];								//在原数组中找到得到的两个数n1,n2所对应的位置
+        int[] ans = new int[2];						//在原数组中找到得到的两个数n1,n2所对应的位置
         for(int i = 0; i < nums.length; i++)
         {
             if(nums[i] == n1)
@@ -86,6 +86,39 @@ class Solution {
             {
                 ans[1] = i;
                 break;
+            }
+        }
+        return ans;
+    }
+}
+
+
+
+
+
+/*
+	7ms
+	HashMap(Key, Value)
+	map.containsKey()
+	map.get(): 得到某个Key的Value
+	map.push()：加进一个(Key, Value)
+*/
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+	HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();	//HashMap的Key和Value必须都是int型
+        int[] ans = new int[2];
+        for(int i = 0; i < nums.length; i++)
+        {
+            int complement = target - nums[i];
+            if(map.containsKey(complement))
+            {
+                ans[0] = i;
+                ans[1] = map.get(complement);
+                break;
+            }
+            else								//找不到对应的数就把此数加进去
+            {
+                map.put(nums[i], i);
             }
         }
         return ans;
