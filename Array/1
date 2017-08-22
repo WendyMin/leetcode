@@ -1,4 +1,5 @@
-/*
+# Question 1 #
+
 Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -8,46 +9,46 @@ Given nums = [2, 7, 11, 15], target = 9,
 
 Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
-*/
+
+----------
 
 
-
-
-
-/* 
-    48 ms
+## 1 ##
+    /*
+    	48 ms
     考虑0+0=0，负数的情况
-*/
-class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        int[] ans = new int[2];
-        int i, j;
-        for(i = 0; i < nums.length - 1 ; i++)
-        {
-            for(j = i + 1; j < nums.length; j++)
-            {
-                if(nums[i] + nums[j] == target)
-                {
-                    ans[0] = i;
-                    ans[1] = j;
-                    break;
-                }
-            }
-        }
-        return ans;
+    */
+    class Solution {
+    	public int[] twoSum(int[] nums, int target) {
+    		int[] ans = new int[2];
+    		int i, j;
+    		for(i = 0; i < nums.length - 1 ; i++)
+    		{
+    			for(j = i + 1; j < nums.length; j++)
+    			{
+    				if(nums[i] + nums[j] == target)
+    				{
+    					ans[0] = i;
+    					ans[1] = j;
+    					break;
+    				}
+    			}
+    		}
+    	return ans;
+    	}
     }
-}
 
 
 
 
-
-/*
-	6ms
-	Arrays.copyOf(): 复制数组
-	Arrays.sort(): 按从小到大排序
-*/
-class Solution {
+## 2  ##
+    
+    /*
+    	6ms
+    	Arrays.copyOf(): 复制数组
+    	Arrays.sort(): 按从小到大排序
+    */
+    class Solution {
     public int[] twoSum(int[] nums, int target) {
 	    int[] nums2 = Arrays.copyOf(nums, nums.length);		//copyOf: 复制！！！
 	    Arrays.sort(nums2);						//sort: 排序！！！从小到大
@@ -95,30 +96,51 @@ class Solution {
 
 
 
-
-/*
-	7ms
-	HashMap(Key, Value)
-	map.containsKey()
-	map.get(): 得到某个Key的Value
-	map.push()：加进一个(Key, Value)
-*/
-class Solution {
+## 3 ##
+    /*
+	6ms
+	Arrays.copyOf(): 复制数组
+	Arrays.sort(): 按从小到大排序
+    */
+    class Solution {
     public int[] twoSum(int[] nums, int target) {
-	HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();	//HashMap的Key和Value必须都是int型
-        int[] ans = new int[2];
-        for(int i = 0; i < nums.length; i++)
+	    int[] nums2 = Arrays.copyOf(nums, nums.length);		//copyOf: 复制！！！
+	    Arrays.sort(nums2);						//sort: 排序！！！从小到大
+		int start = 0, end = nums.length - 1;	
+        int n1 = 0, n2 = 0;						//存取得到的两个数
+        while(start < end)
         {
-            int complement = target - nums[i];
-            if(map.containsKey(complement))
+            if(nums2[start] + nums2[end] < target)
             {
-                ans[0] = i;
-                ans[1] = map.get(complement);
+                start++;
+            }
+            else if(nums2[start] + nums2[end] > target)
+            {
+                end--;
+            }
+            else
+            {
+                n1 = nums2[start];
+                n2 = nums2[end];
                 break;
             }
-            else								//找不到对应的数就把此数加进去
+        }
+        
+        int[] ans = new int[2];						//在原数组中找到得到的两个数n1,n2所对应的位置
+        for(int i = 0; i < nums.length; i++)
+        {
+            if(nums[i] == n1)
             {
-                map.put(nums[i], i);
+                ans[0] = i;
+                break;
+            }
+        }
+        for(int i = 0; i < nums.length; i++)
+        {
+            if(nums[i] == n2 && i != ans[0])
+            {
+                ans[1] = i;
+                break;
             }
         }
         return ans;
