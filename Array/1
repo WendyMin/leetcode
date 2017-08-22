@@ -15,8 +15,8 @@ return [0, 1].
 
 
 /* 
-    48 ms
-    考虑0+0=0，负数的情况
+	48 ms
+	考虑0+0=0，负数的情况
 */
 class Solution {
     public int[] twoSum(int[] nums, int target) {
