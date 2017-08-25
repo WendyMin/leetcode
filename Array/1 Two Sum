@@ -116,18 +116,19 @@ class Solution {
 
 /*
 	4ms
-	完全没看懂……
+	取巧，不适用与范围更大的场合
+	map[数字]=对应的索引值 nums[1]=9,则map[9]=1
 */
 public class Solution{	
     public int[] twoSum(int[] nums, int target) {
                 int[] map = new int[16030];
                 for (int i = 0; i < nums.length; i++) {
-                   int diff=target-nums[i]+5;
-                    if (diff < 0) continue;
-                   if(map[diff]>0){
+                   int diff=target-nums[i]+5;				//给了一个5的缓冲
+                   if (diff < 0) continue;				//不在范围内
+                   if(map[diff]>0){					//在map数组中
                        return new int[] {map[diff]-1,i};
                    }
-                   map[nums[i]+5]=i+1;
+                   map[nums[i]+5]=i+1;					//放入map数组中
                 }
                 throw null;
     }
