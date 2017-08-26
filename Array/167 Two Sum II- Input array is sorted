@@ -41,8 +41,8 @@ class Solution {
 
 /*
 	0ms
-	BinarySearch: 二分法
-  不太懂，BinarySearch的return两个类型都不同
+	BinarySearch: 二分查找
+	尤其85行不太懂，BinarySearch的return两个类型都不同
 */
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
@@ -61,7 +61,7 @@ class Solution {
             
             complement = target - numbers[right];
             // find the smallest number equal to or larger than complement
-            left = BinarySearch(numbers, complement, true, left+1, right - 1);
+            left = BinarySearch(numbers, complement, true, left + 1, right - 1);
             if(complement == numbers[left])
                 break;
         } // end of while 
