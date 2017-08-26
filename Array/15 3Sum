@@ -22,11 +22,10 @@ A solution set is:
 	1)ans.add(Arrays.asList(a,b,c));
 	或者
 	2)List<Integer> l= new ArrayList<Integer>();
-    l.add(nums[i]);
-    l.add(nums[s]);
-    l.add(nums[e]);
-    ans.add(l);
-	
+	  l.add(nums[i]);
+    	  l.add(nums[s]);
+    	  l.add(nums[e]);
+    	  ans.add(l);	
 	Arrays.sort: 从小到大排序
 */
 class Solution {
