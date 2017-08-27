@@ -17,35 +17,50 @@ A solution set is:
 
 
 /*
-	84ms
-	List<List<Integer>> ans = new LinkedList<>();
+	70ms
+	List<List<Integer>> ans = new LinkedList<>();	//ArrayList<>()也可以
 	1)ans.add(Arrays.asList(a,b,c));
 	或者
 	2)List<Integer> l= new ArrayList<Integer>();
-	  l.add(nums[i]);
-    	  l.add(nums[s]);
-    	  l.add(nums[e]);
-    	  ans.add(l);	
+    l.add(nums[i]);
+    l.add(nums[s]);
+    l.add(nums[e]);
+    ans.add(l);
+	
 	Arrays.sort: 从小到大排序
+	排除了长度小于3个的数组，排除了排序后第一个是非负数
+	
+	LinkedList 与 ArrayList 的区别：
+	【数组、ArrayList、List、LinkedList的区别】http://www.cnblogs.com/janneystory/p/5758958.html
+	ArrayList 采用数组形式保存对象，将对象放在连续位置中，插入删除麻烦
+	LinkedList 循环双向链表 插入删除容易，查找麻烦，要从第一个索引开始
+	经比较发现，用ArrayList比LinkedList快一点，可能是因为不需要上下的链
+	List<List<Integer>> ans = new ArrayList<>();
+	ans.add(Arrays.asList(a,b,c));
+	
+	经比较发现，55-63行对于sum的判定时，将sum==0放在最后，运行速度会快一些
 */
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
+		if (nums == null || nums.length == 0 || nums.length < 3) return new LinkedList<>();
         Arrays.sort(nums);
         List<List<Integer>> ans = new LinkedList<>(); 
         for (int i = 0; i < nums.length-2; i++) {
+			if(nums[i] > 0) break;
             if(i!=0 && nums[i]==nums[i-1]) continue;
             int left = i + 1;
             int right = nums.length - 1;
             while(left < right){
-                if(nums[i] + nums[left] + nums[right] == 0){
+				int sum = nums[i] + nums[left] + nums[right];
+                if(sum < 0)	left++;
+                else if(sum > 0) right--;
+                else{
                     ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     while(nums[left+1] == nums[left] && left+1 < right) left++;
                     while(nums[right-1] == nums[right] && left < right-1) right--;
                     left++;
                     right--;
                 }
-                else if(nums[i] + nums[left] + nums[right] < 0)	left++;
-                else if(nums[i] + nums[left] + nums[right] > 0) right--;
             }
         }
         return ans;
@@ -57,17 +72,16 @@ class Solution {
 
 
 /*
-	60ms
-	没看呢
+	69ms
+	List<List<Integer>> res = new ArrayList<>();
+	函数的用法: private void XX()
 */
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-            if (nums == null || nums.length == 0 || nums.length < 3) return new ArrayList<>();
-
+        if (nums == null || nums.length == 0 || nums.length < 3) return new ArrayList<>();
         Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
-
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < nums.length - 2; i++) {
             int cur = nums[i];
             if (nums[i] > 0) break;
             if (i > 0 && nums[i] == nums[i-1]) continue;
