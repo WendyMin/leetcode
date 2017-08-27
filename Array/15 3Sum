@@ -22,10 +22,10 @@ A solution set is:
 	1)ans.add(Arrays.asList(a,b,c));
 	或者
 	2)List<Integer> l= new ArrayList<Integer>();
-    l.add(nums[i]);
-    l.add(nums[s]);
-    l.add(nums[e]);
-    ans.add(l);
+	  l.add(nums[i]);
+	  l.add(nums[s]);
+	  l.add(nums[e]);
+	  ans.add(l);
 	
 	Arrays.sort: 从小到大排序
 	排除了长度小于3个的数组，排除了排序后第一个是非负数
@@ -42,25 +42,25 @@ A solution set is:
 */
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-		if (nums == null || nums.length == 0 || nums.length < 3) return new LinkedList<>();
+	if (nums == null || nums.length == 0 || nums.length < 3) return new LinkedList<>();
         Arrays.sort(nums);
         List<List<Integer>> ans = new LinkedList<>(); 
         for (int i = 0; i < nums.length-2; i++) {
-			if(nums[i] > 0) break;
+            if(nums[i] > 0) break;
             if(i!=0 && nums[i]==nums[i-1]) continue;
             int left = i + 1;
             int right = nums.length - 1;
             while(left < right){
-				int sum = nums[i] + nums[left] + nums[right];
-                if(sum < 0)	left++;
-                else if(sum > 0) right--;
-                else{
-                    ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                    while(nums[left+1] == nums[left] && left+1 < right) left++;
-                    while(nums[right-1] == nums[right] && left < right-1) right--;
-                    left++;
-                    right--;
-                }
+                 int sum = nums[i] + nums[left] + nums[right];
+                 if(sum < 0)	left++;
+                 else if(sum > 0) right--;
+                 else{
+                      ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                      while(nums[left+1] == nums[left] && left+1 < right) left++;
+                      while(nums[right-1] == nums[right] && left < right-1) right--;
+                      left++;
+                      right--;
+                      }
             }
         }
         return ans;
