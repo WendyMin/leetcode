@@ -12,7 +12,7 @@ Output: index1=1, index2=2
 
 
 /*
-  1ms
+  1ms 40%
 */
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
@@ -40,9 +40,9 @@ class Solution {
 
 
 /*
-	0ms
+	0ms 99%
 	BinarySearch: 二分查找
-	尤其85行不太懂，BinarySearch的return两个类型都不同
+	???尤其85行不太懂，BinarySearch的return两个类型都不同
 */
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
