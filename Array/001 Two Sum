@@ -15,7 +15,7 @@ return [0, 1].
 
 
 /* 
-	48 ms
+	45ms 21%
 	考虑0+0=0，负数的情况
 */
 class Solution {
@@ -39,7 +39,7 @@ class Solution {
 
 
 /*
-	6ms
+	5ms 99.49%
 	Arrays.copyOf(): 复制数组
 	Arrays.sort(): 按从小到大排序
 */
@@ -85,7 +85,7 @@ class Solution {
 
 
 /*
-	7ms
+	7ms 92%
 	HashMap(Key, Value)
 	map.containsKey()
 	map.get(): 得到某个Key的Value
@@ -115,7 +115,7 @@ class Solution {
 
 
 /*
-	4ms
+	3ms 99.90%
 	取巧，不适用与范围更大的场合
 	map[数字]=对应的索引值 nums[1]=9,则map[9]=1
 */
