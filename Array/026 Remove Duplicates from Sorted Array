@@ -15,7 +15,7 @@ Your function should return length = 2, with the first two elements of nums bein
 
 
 /*
-  12ms
+  12ms 89%
   前面的0-i个（共i+1个）不重复，一旦重复，i值就不变；一旦不重复/变大，i值就加1
 */
 public class Solution {
@@ -35,7 +35,7 @@ public class Solution {
 
 
 /*
-  13ms
+  13ms 64%
   同理
 */
 public class Solution {
@@ -52,7 +52,7 @@ public class Solution {
 
 
 /*
-  15ms
+  14ms 40%
   同理
 */
 public class Solution {
