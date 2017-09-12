@@ -16,7 +16,7 @@ Your function should return length = 2, with the first two elements of nums bein
 
 
 /*
-	9ms
+	9ms 53%
 	一旦出现val就整体往前移
 */
 class Solution {
@@ -36,13 +36,13 @@ class Solution {
 
 
 /*
-	9ms
+	9ms 53%
 	一旦出现val就把最后一个值赋给它
 */
 class Solution {
     public int removeElement(int[] nums, int val) {
         int last = nums.length - 1;       
-        for(int i = 0; i < newlength; i++){
+        for(int i = 0; i < nums.length; i++){
             while(nums[i] == val && last >= i){
                 nums[i] = nums[last];
                 last--;
@@ -51,3 +51,4 @@ class Solution {
         return last + 1;
     }
 }
+
