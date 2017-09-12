@@ -13,36 +13,18 @@ Here are few examples.
 
 
 /*
-  5ms 61%
+  6ms 17%
+  此题差距不大
  */
 class Solution {
     public int searchInsert(int[] nums, int target) {
         int res=0;
-        if(nums==null || nums.length==0) {return res;}
-        if(nums.length==1){
-            if(nums[0] < target) res=1;
-            else res=0;
-        }
+        if(nums==null || nums.length==0) return res;
+        else if(nums[0]>target) return 0;
+        else if(nums[nums.length-1]<target) return nums.length;
         else{
-            int i=0;
-            while(i<nums.length){
-                if(nums[i]==target){
-                    res=i;
-                    break;
-                }
-                else if(i<nums.length-1 && nums[i]<target){
-                    i++;
-                }
-                else if(nums[i]>target){
-                    res=i;
-                    break;
-                }
-                else if(i==nums.length-1 && nums[i]<target){
-                    res=i+1;
-                    break;
-                }
-                else i++;
-
+            for(int i=0; i<nums.length; i++){
+                if(nums[i]==target || nums[i]>target) return i;
             }
         }
         return res;
@@ -56,28 +38,20 @@ class Solution {
 
 
 /*
-  6ms 17%
-  二分法
+  5ms 61%
+  二分法 数多的情况下时间更少
 */
 class Solution {
     public int searchInsert(int[] nums, int target) {
-        int l = 0;
-        int r = nums.length;
+        int l = 0, r = nums.length;
         int m = 0;
-        if(nums[nums.length-1]<target)
-        	return nums.length;
-        if(nums[0]>target)
-        	return 0;
+        if(nums[nums.length-1]<target) return nums.length;
+        if(nums[0]>target) return 0;
         while(l<=r){
             m = (l+r)/2;
-            if(nums[m]==target)
-            	return m;
-            else if(nums[m]<target){
-                l = m+1;
-            }else{
-                r = m-1;
-            }         
-            
+            if(nums[m]==target) return m;
+            else if(nums[m]<target) l = m+1;
+            else r = m-1;
         }
         return l;
     }
