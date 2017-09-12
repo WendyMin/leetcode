@@ -19,16 +19,17 @@ A solution set is:
 /*
   29ms 84%
   注意target为负，排除与前一个相同的情况，排除特殊情况，节省时间
+  nums==null 与 nums.length==0 不一样: nums==null是数组类型的空引用，而nums.length==0虽然长度为0，但是依然是一个对象
 */
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
         List<List<Integer>> res = new LinkedList<>();
-        if(nums.length < 4) return res;
+        if(nums == null || nums.length < 4) return res;
         Arrays.sort(nums);
         for(int i = 0; i < nums.length - 3; i++){
-            if(nums[i] + nums[i+1] + nums[i+2] + nums[i+3] > target) break;
-            if(nums[i] + nums[nums.length-3] + nums[nums.length-2] + nums[nums.length-1] < target) continue;
-            if(i > 0 && nums[i-1] == nums[i]) continue;
+            if(nums[i] + nums[i+1] + nums[i+2] + nums[i+3] > target) break;										//排除
+            if(nums[i] + nums[nums.length-3] + nums[nums.length-2] + nums[nums.length-1] < target) continue;	//排除
+            if(i > 0 && nums[i-1] == nums[i]) continue;															//排除
             for(int j = i + 1;j < nums.length - 2; j++){
                 if(nums[i] + nums[j] + nums[j+1] + nums[j+2] > target) break;
                 if(nums[i] + nums[j] + nums[nums.length-2] + nums[nums.length-1] < target) continue;
@@ -36,7 +37,6 @@ class Solution {
                 int complement = target - nums[i] - nums[j];
                 int left = j + 1, right = nums.length - 1;
                 while(left < right){
-                    // if(nums[left] == nums[right]) break;
                     if(nums[left] + nums[right] < complement) left++;
                     else if(nums[left] + nums[right] > complement) right--;
                     else if(!res.contains(Arrays.asList(nums[i], nums[j], nums[left], nums[right]))){
@@ -51,4 +51,54 @@ class Solution {
         }
         return res;
     }
+}
+
+
+
+
+
+
+/*
+	25ms 95%
+	此排除特殊情况发更加简单易操作，节省时间
+*/
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(nums == null || nums.length == 0) return res;
+        Arrays.sort(nums);
+        if(nums[0]*4 > target || nums[nums.length-1]*4 < target) return res;					//排除
+        for(int i=0; i<nums.length-3; i++){
+            if(nums[i]*4 > target) break;
+            if(i>0 && nums[i]==nums[i-1]) continue;
+            threeSum(nums, target-nums[i], i+1, res, nums[i]);
+        }
+        return res;
+    }
+    
+    public void threeSum(int[] nums, int target, int left, List<List<Integer>> res, int firstNum){
+        if(nums[left]*3 > target || nums[nums.length-1]*3 < target) return;
+        for(int i=left; i< nums.length-2; i++){
+            if(nums[i]*3 > target) return;
+            if(i>left && nums[i]==nums[i-1]) continue;
+            twoSum(nums, target-nums[i], i, res, firstNum, nums[i]);
+        }
+    }
+	
+    public void twoSum(int[] nums, int target, int left, List<List<Integer>> res, int firstNum, int secondNum){
+        if(nums[left]*2 > target || nums[nums.length-1]*2 < target) return;
+        int l = left+1, r = nums.length-1;
+        while(l<r){
+            if(nums[l]+nums[r]==target){
+                res.add(Arrays.asList(firstNum, secondNum, nums[l], nums[r]));
+                while(l<r && nums[l]==nums[l+1]) l++;
+                while(l<r && nums[r]==nums[r-1]) r--;
+                l++;
+                r--;
+            }
+			else if(nums[l]+nums[r]<target) l++;
+			else r--;
+        }
+    }
+	
 }
