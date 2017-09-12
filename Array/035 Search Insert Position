@@ -13,7 +13,7 @@ Here are few examples.
 
 
 /*
-  7ms 6%
+  5ms 61%
  */
 class Solution {
     public int searchInsert(int[] nums, int target) {
@@ -46,5 +46,39 @@ class Solution {
             }
         }
         return res;
+    }
+}
+
+
+
+
+
+
+
+/*
+  6ms 17%
+  二分法
+*/
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int l = 0;
+        int r = nums.length;
+        int m = 0;
+        if(nums[nums.length-1]<target)
+        	return nums.length;
+        if(nums[0]>target)
+        	return 0;
+        while(l<=r){
+            m = (l+r)/2;
+            if(nums[m]==target)
+            	return m;
+            else if(nums[m]<target){
+                l = m+1;
+            }else{
+                r = m-1;
+            }         
+            
+        }
+        return l;
     }
 }
