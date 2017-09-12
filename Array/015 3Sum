@@ -17,7 +17,7 @@ A solution set is:
 
 
 /*
-	70ms
+	77ms 86%
 	List<List<Integer>> ans = new LinkedList<>();	//ArrayList<>()也可以
 	1)ans.add(Arrays.asList(a,b,c));
 	或者
@@ -72,11 +72,11 @@ class Solution {
 
 
 /*
-	69ms
+	73ms 94%
 	List<List<Integer>> res = new ArrayList<>();
 	函数的用法: private void XX()
 */
-public class Solution {
+class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         if (nums == null || nums.length == 0 || nums.length < 3) return new ArrayList<>();
         Arrays.sort(nums);
