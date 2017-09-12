@@ -15,7 +15,7 @@ Note:
 
 
 /*
-	175ms
+	164ms 27%
 */
 class Solution {
     public int subarraySum(int[] nums, int k) {
@@ -39,7 +39,7 @@ class Solution {
 
 
 /*
-	21ms
+	21ms 99.85%
 */
 class Solution {
      public int subarraySum(int[] nums, int k) {
@@ -93,7 +93,7 @@ class Solution {
 
 
 /*
-	30ms
+	32ms 99.22%
 */
 class Solution {
     public int subarraySum(int[] nums, int k) {
@@ -121,7 +121,7 @@ class Solution {
 
 
 /*
-	31ms
+	36ms 96%
 */
 class Solution {
     public int subarraySum(int[] nums, int k) {
