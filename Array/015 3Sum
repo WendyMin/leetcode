@@ -18,6 +18,8 @@ A solution set is:
 
 /*
 	77ms 86%
+	for循环中嵌套了001 Two Sum的方法
+	
 	List<List<Integer>> ans = new LinkedList<>();	//ArrayList<>()也可以
 	1)ans.add(Arrays.asList(a,b,c));
 	或者
