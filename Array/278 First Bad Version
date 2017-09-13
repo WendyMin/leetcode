@@ -21,12 +21,8 @@ public class Solution extends VersionControl {
         int lo=1, hi=n;
         while(lo<hi){
             int mid = lo + (hi-lo)/2;           //注意两个特别大的数，会超出int范围，造成overflow
-            if(isBadVersion(mid)){
-                hi = mid;
-            }
-            else{
-                lo = mid + 1;
-            }
+            if(isBadVersion(mid)) hi = mid;
+            else lo = mid + 1;
         }
         return lo;
     }
