@@ -15,17 +15,22 @@ Your function should return length = 2, with the first two elements of nums bein
 
 
 
+
 /*
 	9ms 53%
-	一旦出现val就整体往前移
+	time complexity: O(n)
+	space complexity: O(1)
+	出现需要删除的val，就用后面的覆盖，整体前移
 */
 class Solution {
     public int removeElement(int[] nums, int val) {
-        int begin = 0;
-        for(int a:nums){
-            if(a != val) nums[begin++] = a;
+        int i=0;
+        for(int j=0; j<nums.length; j++){
+            if(nums[j]!=val){
+                nums[i++]=nums[j];
+            }
         }
-        return begin;
+        return i;
     }
 }
 
@@ -37,7 +42,9 @@ class Solution {
 
 /*
 	9ms 53%
-	一旦出现val就把最后一个值赋给它
+	time complexity: O(n)
+	space complexity: O(1)
+	一旦出现val就把最后一个值赋给它，代码实现起来相对复杂一点
 */
 class Solution {
     public int removeElement(int[] nums, int val) {
@@ -51,4 +58,3 @@ class Solution {
         return last + 1;
     }
 }
-
