@@ -100,9 +100,11 @@ public class Solution extends GuessGame {
 
 
 /*
-  【Ternary Search】
+  
   Time complexity : O(log3n)
   Space complexity : O(1)
+  【Ternary Search】
+  但是事实上二分法的使用范围更广，三分法比二分法所用时间更久，具体见此题Solution，给出了对于最坏情况而言的数学时间推导 https://leetcode.com/problems/guess-number-higher-or-lower/solution/
 */
 public class Solution extends GuessGame {
     public int guessNumber(int n) {
