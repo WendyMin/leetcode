@@ -11,27 +11,22 @@ Output: index1=1, index2=2
 
 
 
+
+
 /*
   1ms 40%
+  TC: O(n)
+  SC: O(1)
 */
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        int start = 0, end = numbers.length - 1;
-        int[] ans = new int[2];
-        while(start < end){
-            if(numbers[start] + numbers[end] < target){
-                start++;
-            }
-            else if(numbers[start] + numbers[end] > target){
-                end--;
-            }
-            else{
-                ans[0] = start + 1;
-                ans[1] = end + 1;
-                break;
-            }
+        int lo=0, hi=numbers.length-1;
+        while(lo<hi){
+            if(numbers[lo]+numbers[hi] > target) hi--;
+            else if(numbers[lo]+numbers[hi] < target) lo++;
+            else return new int[] {lo+1, hi+1};
         }
-        return ans;   //return new int[] { i+1, j+1 };
+        return new int[2];
     }
 }
 
@@ -39,18 +34,14 @@ class Solution {
 
 
 
+
 /*
 	0ms 99%
-	BinarySearch: 二分查找
-	???尤其85行不太懂，BinarySearch的return两个类型都不同
+	【BinarySearch】
+	???尤其85行不太懂，BinarySearch的return两个类型都不同,未完
 */
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        /* Binary Search : Search for the complement on left and right 
-        side using nbinary search twice.
-        TC : O(n)
-        SC : O(1)
-        */
         int left = 0, right = numbers.length;
         while(left < right){
             int complement = target - numbers[left];
