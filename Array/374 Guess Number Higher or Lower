@@ -101,7 +101,8 @@ public class Solution extends GuessGame {
 
 /*
   【Ternary Search】
-
+  Time complexity : O(log3n)
+  Space complexity : O(1)
 */
 public class Solution extends GuessGame {
     public int guessNumber(int n) {
