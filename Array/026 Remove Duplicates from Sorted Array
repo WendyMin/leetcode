@@ -16,6 +16,8 @@ Your function should return length = 2, with the first two elements of nums bein
 
 /*
   12ms 89%
+  time complexity: O(n)
+  space complexity: O(1)
   前面的0-i个（共i+1个）不重复，一旦重复，i值就不变；一旦不重复/变大，i值就加1
 */
 public class Solution {
@@ -40,7 +42,7 @@ public class Solution {
 */
 public class Solution {
     public int removeDuplicates(int[] nums) {
-    int i = nums.length > 0 ? 1 : 0;
+    int i = nums.length > 0 ? 1 : 0;    //给i赋值0或1
     for (int n : nums)
         if (n > nums[i-1])
             nums[i++] = n;
