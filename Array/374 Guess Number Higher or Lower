@@ -20,6 +20,8 @@ Return 6.
 
 /*
   1ms 11%
+  Time complexity : O(log2n)
+  Space complexity : O(1)
   一开始在while循环里写了三个判断语句，相等的时候return答案，逻辑简单
 */
 /* The guess API is defined in the parent class GuessGame.
@@ -45,8 +47,12 @@ public class Solution extends GuessGame {
 
 
 
+
 /*
   1ms 11%
+  Time complexity : O(log2n)
+  Space complexity : O(1)
+  【Binary Search】
   通过Solution，发现可以不用int res，而如果跳出了循环，就必然是错误的，因此可以返回-1，修改如下
 */
 public class Solution extends GuessGame {
@@ -69,6 +75,8 @@ public class Solution extends GuessGame {
 
 /*
   1ms 11%
+  Time complexity : O(log2n)
+  Space complexity : O(1)
   后来参考Discuss，发现可以更进一步简化代码，分为两种情况进行讨论：
   1. guess>answer:lo=mid+1
   2. guess<=answer:hi=mid  有可能hi正好就是answer，也有可能比answer小一些，用lo逐渐逼近hi
@@ -83,5 +91,40 @@ public class Solution extends GuessGame {
             else hi = mid;
         }
         return lo;
+    }
+}
+
+
+
+
+
+
+/*
+  【Ternary Search】
+
+*/
+public class Solution extends GuessGame {
+    public int guessNumber(int n) {
+        int low = 1;
+        int high = n;
+        while (low <= high) {
+            int mid1 = low + (high - low) / 3;
+            int mid2 = high - (high - low) / 3;
+            int res1 = guess(mid1);
+            int res2 = guess(mid2);
+            if (res1 == 0)
+                return mid1;
+            if (res2 == 0)
+                return mid2;
+            else if (res1 < 0)
+                high = mid1 - 1;
+            else if (res2 > 0)
+                low = mid2 + 1;
+            else {
+                low = mid1 + 1;
+                high = mid2 - 1;
+            }
+        }
+        return -1;
     }
 }
