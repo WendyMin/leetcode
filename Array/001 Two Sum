@@ -43,7 +43,7 @@ class Solution {
 
 /*
 	5ms 99.49%
-	【排序之后从两头缩进查找】
+	【排序之后从两头缩进查找】【本题最佳1】
 	Arrays.copyOf(): 复制数组
 	Arrays.sort(): 按从小到大排序
 */
@@ -88,8 +88,47 @@ class Solution {
 
 
 
+
+
+/*
+	10ms 53%
+	time complexity: O(n)
+	space complexity: O(n)
+	【HashMap】
+	HashMap<> map = new HashMap<>()与Map<> map = new HashMap<>()的区别：
+	https://zhidao.baidu.com/question/1514516590016789060.html
+	http://bbs.csdn.net/topics/310092881
+	Map map = new HashMap() 定义的是一个接口，调用这个接口来实现要完成的动作，这样调用者直接用这个接口就可以了，而不用关心具体是怎么实现这个接口的，map接口与具体实现的映射java做了，假如以后有变动的话，不用再去管这个接口，只去改下实现类就可以了，方便维护，隔离性强。
+	HashMap map = new HashMap() 定义的是一个实现类，把这个实现类给别人用，一旦出现问题或改动，程序就无法运行，凡是用到这个类的地方都要修改，维护起来很麻烦，而上面的接口，你只需要改你实现这个接口的实现类就可以了。
+
+	先把所有的number及index都加进HashMap中，再进行查找
+*/
+public class Solution{	
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement) && map.get(complement) != i) {
+                return new int[] { i, map.get(complement) };
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+}
+
+
+
+
+
+
+
 /*
 	7ms 92%
+	time complexity: O(n)
+	space complexity: O(n)
 	【HashMap】
 	HashMap(Key, Value)
 	map.containsKey()：是否包含某个Key
@@ -120,33 +159,22 @@ class Solution {
 
 
 
-
-
 /*
-	10ms 53%
-	【HashMap】
-	HashMap<> map = new HashMap<>()与Map<> map = new HashMap<>()的区别：
-	https://zhidao.baidu.com/question/1514516590016789060.html
-	http://bbs.csdn.net/topics/310092881
-	Map map = new HashMap() 定义的是一个接口，调用这个接口来实现要完成的动作，这样调用者直接用这个接口就可以了，而不用关心具体是怎么实现这个接口的，map接口与具体实现的映射java做了，假如以后有变动的话，不用再去管这个接口，只去改下实现类就可以了，方便维护，隔离性强。
-	HashMap map = new HashMap() 定义的是一个实现类，把这个实现类给别人用，一旦出现问题或改动，程序就无法运行，凡是用到这个类的地方都要修改，维护起来很麻烦，而上面的接口，你只需要改你实现这个接口的实现类就可以了。
-
-	先把所有的number及index都加进HashMap中，再进行查找
+	【HashMap】【本题最佳2】
+	与上同，改进了HashMap变为Map，并简化了return
 */
-public class Solution{	
+class Solution {
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], i);
-        }
-        for (int i = 0; i < nums.length; i++) {
-            int complement = target - nums[i];
-            if (map.containsKey(complement) && map.get(complement) != i) {
-                return new int[] { i, map.get(complement) };
-            }
-        }
-        throw new IllegalArgumentException("No two sum solution");
-    }
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < nums.length; i++) {
+			int complement = target - nums[i];
+			if (map.containsKey(complement)) {
+				return new int[] { map.get(complement), i };
+			}
+			map.put(nums[i], i);
+		}
+		throw new IllegalArgumentException("No two sum solution");
+	}
 }
 
 
