@@ -10,7 +10,9 @@ You are given an API bool isBadVersion(version) which will return whether versio
 
 /*
   17ms 53%
-  注意overflow！！！！！！！
+  TC: O(logn)
+  SC: O(1)
+  注意overflow！！！！！！！python不会出现overflow的问题
   二分法
 */
 /* The isBadVersion API is defined in the parent class VersionControl.
