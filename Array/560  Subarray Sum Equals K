@@ -73,19 +73,20 @@ class Solution {
 	【HashMap】
 	Solution中思路，用HashMap存储从第一个数开始往后的每增加一个数之和sum，一旦sum-k出现在HashMap中，就说明有连续和为k的数段
 	Object getOrDefault(Object key, Object defaultValue)回map键对应的map值，如果不存在map键，返回默认值
-	https://leetcode.com/articles/subarray-sum-equals-k/
+	https://leetcode.com/articles/subarray-sum-equals-k/          仔细看动图
 */
 class Solution {
     public int subarraySum(int[] nums, int k) {
-        int count = 0, sum = 0;
-        HashMap < Integer, Integer > map = new HashMap < > ();
-        map.put(0, 1);
-        for (int i = 0; i < nums.length; i++) {
+        int res=0, sum=0;
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(0,1);
+        for(int i=0; i<nums.length; i++){
             sum += nums[i];
-            if (map.containsKey(sum - k))
-                count += map.get(sum - k);
-            map.put(sum, map.getOrDefault(sum, 0) + 1);
+            if(map.containsKey(sum-k)){
+                res += map.get(sum-k);
+            }
+            map.put(sum,map.getOrDefault(sum,0)+1);
         }
-        return count;
+        return res;
     }
 }
