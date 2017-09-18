@@ -15,7 +15,10 @@ Note:
 
 
 /*
-	164ms 27%
+	164ms 23%
+	TC: O(n`2)
+	SC: O(1)
+	for循环里面有一点复杂
 */
 class Solution {
     public int subarraySum(int[] nums, int k) {
@@ -39,51 +42,25 @@ class Solution {
 
 
 /*
-	21ms 99.85%
+	1213ms 27%
+	TC: O(n`2)
+	SC: O(1)
+	改进了for循环，思路更清晰
 */
 class Solution {
-     public int subarraySum(int[] nums, int k) {
-        int[] sums = new int[nums.length + 1];
-        for (int i = 1; i < sums.length; i++) {
-            sums[i] = sums[i - 1] + nums[i - 1];
+    public int subarraySum(int[] nums, int k) {
+        int res=0;
+        for(int i=0; i<nums.length; i++){
+            int sum=0;
+            for(int j=i; j<nums.length; j++){
+                sum += nums[j];
+                if(sum==k){
+                    res++;
+                }
+            }
         }
-        return sub(sums, new int[sums.length], 0, sums.length - 1, k);
-    }
-    
-    private int sub(int[] sums, int[] aux, int start, int end, int k) {
-        if (start >= end) {
-            return 0;
-        }
-        int mid = start + (end - start) / 2;
-        int res = sub(sums, aux, start, mid, k) + sub(sums, aux, mid + 1, end, k);
-        res += merge(sums, aux, start, mid, end, k);
         return res;
     }
-    
-    private int merge(int[] sums, int[] aux, int start, int mid, int end, int k) {
-        // System.out.println("start: " + start + " mid: " + mid + " end: " + end);
-        // System.out.println("Before merge: " + Arrays.toString(sums));
-        for (int i = start; i <= end; i++) {
-            aux[i] = sums[i];
-        }
-        int count = 0;
-        int i = start, j = mid + 1, t = start;
-        int p = mid + 1;
-        while (i <= mid) {
-            while (p <= end && aux[p] - k < aux[i]) p++;
-            for (int q = 0; q + p <= end; q++) {
-                if (aux[p + q] - k > aux[i]) break;
-                else count++;
-            }
-            
-            while (j <= end && aux[i] > aux[j]) sums[t++] = aux[j++];
-            sums[t++] = aux[i++];
-        }
-        
-        while (j <= end) sums[t++] = aux[j++];
-        // System.out.println("After merge: " + Arrays.toString(sums));
-        return count;
-    }
 }
 
 
@@ -91,61 +68,23 @@ class Solution {
 
 
 
-
 /*
-	32ms 99.22%
+	43ms 61%
+	HashMap
+	Solution中思路，用HashMap存储从第一个数开始往后的每增加一个数之和sum，一旦sum-k出现在HashMap中，就说明有连续和为k的数段
+	https://leetcode.com/articles/subarray-sum-equals-k/
 */
 class Solution {
     public int subarraySum(int[] nums, int k) {
-        if (nums == null || nums.length == 0) return 0;
-        int[] prefixSum = new int[nums.length+1];
-        int sum = 0, num=0;
-        for (int i=0; i<nums.length; i++){
-            sum += nums[i];
-            prefixSum[i+1] = sum;
-        }
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        int count = 0, sum = 0;
+        HashMap < Integer, Integer > map = new HashMap < > ();
         map.put(0, 1);
-        for (int i=1; i<prefixSum.length; i++){
-            if (map.containsKey(prefixSum[i]-k)) num += map.get(prefixSum[i]-k);
-            if (map.containsKey(prefixSum[i])) map.put(prefixSum[i], map.get(prefixSum[i])+1);
-            else map.put(prefixSum[i], 1);
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (map.containsKey(sum - k))
+                count += map.get(sum - k);
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
         }
-        return num;
-    }
-}
-
-
-
-
-
-
-/*
-	36ms 96%
-*/
-class Solution {
-    public int subarraySum(int[] nums, int k) {
-        if(nums.length == 0) {
-            return 0;
-        }
-        int[] sum = new int[nums.length + 1];
-        for(int i = 0; i < nums.length; ++i) {
-            sum[i + 1] = nums[i] + sum[i];
-        }
-        Map<Integer, Integer> hmap = new HashMap<>();
-        hmap.put(0, 1);
-        int ret = 0;
-        for(int i = 1; i < sum.length; ++i) {
-            int val = sum[i] - k;
-            if(hmap.containsKey(val)) {
-                ret += hmap.get(val);
-            }
-            if(!hmap.containsKey(sum[i])) {
-                hmap.put(sum[i], 1);
-            } else {
-                hmap.put(sum[i], hmap.get(sum[i]) + 1);
-            }
-        }
-        return ret;
+        return count;
     }
 }
