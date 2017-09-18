@@ -70,8 +70,9 @@ class Solution {
 
 /*
 	43ms 61%
-	HashMap
+	【HashMap】
 	Solution中思路，用HashMap存储从第一个数开始往后的每增加一个数之和sum，一旦sum-k出现在HashMap中，就说明有连续和为k的数段
+	Object getOrDefault(Object key, Object defaultValue)回map键对应的map值，如果不存在map键，返回默认值
 	https://leetcode.com/articles/subarray-sum-equals-k/
 */
 class Solution {
