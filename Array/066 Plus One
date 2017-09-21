@@ -47,6 +47,7 @@ class Solution {
 
 /*
   0ms 30%
+  Discuss和Solution解法，唯一不同的地方在于没有初始化最后的ans，但也可以返回正确答案，这是为什么？
 */
 class Solution {
     public int[] plusOne(int[] digits) {
