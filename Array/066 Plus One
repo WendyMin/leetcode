@@ -1,0 +1,64 @@
+Given a non-negative integer represented as a non-empty array of digits, plus one to the integer.
+
+You may assume the integer do not contain any leading zero, except the number 0 itself.
+
+The digits are stored such that the most significant digit is at the head of the list.
+
+
+
+
+给一个数，以数组的形式呈现出来。比如给定9，那么就是[9]；给定28，,那么就是[28]
+然后给此数加1，输出
+注意不会有类似023这样的数，只可能会是23或者0
+
+
+
+
+
+
+/*
+  0ms 30%
+*/
+class Solution {
+    public int[] plusOne(int[] digits) {
+        for(int i=digits.length-1;i>=0;i--){
+            if(digits[i]<9){
+                digits[i]++;
+                return digits;
+            }
+            else digits[i]=0;
+        }
+        int[] ans=new int[digits.length+1];
+         for(int j=0;j<digits.length;j++){
+             ans[j+1]=digits[j];
+         }
+        ans[0]=1;
+        return ans;
+    }
+}
+
+
+
+
+
+
+
+
+
+/*
+  0ms 30%
+*/
+class Solution {
+    public int[] plusOne(int[] digits) {
+        for(int i=digits.length-1;i>=0;i--){
+            if(digits[i]<9){
+                digits[i]++;
+                return digits;
+            }
+            else digits[i]=0;
+        }
+        int[] ans=new int[digits.length+1];
+        ans[0]=1;
+        return ans;
+    }
+}
