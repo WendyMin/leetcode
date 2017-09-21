@@ -37,6 +37,7 @@ class Solution {
 /*
   16ms 37%
   Solution的另一种解法，没有用数组存储数串之和，确实没有必要用到sums[]，一个sum就足够了
+  Integer.MIN_VALUE = -2147483647
 */
 class Solution {
     public int maxSubArray(int[] nums) {
