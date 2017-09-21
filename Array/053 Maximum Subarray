@@ -12,6 +12,7 @@ the contiguous subarray [4,-1,2,1] has the largest sum = 6.
   16ms 37%
   一开始的想法是建一个HashMap，存入从第一个到第i个的所有的和，然后相减，得到最大的值
   后来思考觉得时间复杂度有一点高，因此参考Discuss换了一种解决方法，只存到指定位置为最后一位的最大数串之和，一旦前面的和为负，就舍弃
+  Math.max(a,b)，求两个数的最大值
 */
 class Solution {
     public int maxSubArray(int[] nums) {
