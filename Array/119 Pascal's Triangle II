@@ -37,6 +37,7 @@ class Solution {
 
 /*
   1ms 88%
+  掌握了杨辉三角的公式，由公式直接算出
 */
 class Solution {
     public List<Integer> getRow(int rowIndex) {
@@ -46,37 +47,5 @@ class Solution {
             rowList[i] = (int)((long)rowList[i-1]*(rowIndex-(i-1))/(i));
         }
         return Arrays.asList(rowList);
-    }
-}
-
-
-
-
-
-
-
-class Solution {
-    public List<Integer> getRow(int rowIndex) {
-        List<Integer> list = new ArrayList<Integer>();
-        int r,n=rowIndex;
-        for(r=0;r<=n;r++)
-        {
-            list.add(combination(n,r));
-        }
-        return list;
-    }
-    public int combination(int n,int r)
-    {
-        if(n==0||n==1||r==0||r==n)
-        return 1;
-        if(r>n/2)
-            return combination(n,n-r);
-        double prod=1;
-        for(int i=r;i>=1;i--)
-        {
-            prod=prod*n/i;
-            n--;
-        }
-        return (int)Math.round(prod);
     }
 }
