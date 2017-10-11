@@ -71,7 +71,7 @@ class Solution {
 
 
 /*
-    20ms 37%  
+    18ms 76%  
     TC: O(n)
     SC: O(1)
     Solution中解决方法，跟上面那种方法思路相同，只不过代码和条理都简洁了一些
