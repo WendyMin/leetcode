@@ -31,3 +31,23 @@ class Solution {
         return new int[] {-1,-1};
     }
 }
+
+
+
+
+
+/*
+    9ms 14%
+    简化了一下上面的代码，将找到target的情况提前，这样就不用排除nums长度为0和1的情况了
+*/
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int lo=0,hi=nums.length-1;
+        while(lo<=hi){
+            if(nums[lo]==target && nums[hi]==target) return new int[] {lo,hi};
+            if(nums[lo]<target) lo++;
+            if(nums[hi]>target) hi--;     
+        }
+        return new int[] {-1,-1};
+    }
+}
