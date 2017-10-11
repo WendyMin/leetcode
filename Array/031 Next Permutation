@@ -1,0 +1,66 @@
+Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
+
+If such arrangement is not possible, it must rearrange it as the lowest possible order (ie, sorted in ascending order).
+
+The replacement must be in-place, do not allocate extra memory.
+
+Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
+1,2,3 → 1,3,2
+3,2,1 → 1,2,3
+1,1,5 → 1,5,1
+
+
+
+
+字典排序
+1,2,3 1,3,2 2,1,3 2,3,1 3,1,2 3,2,1
+1,2,3,4 1,2,4,3 1,3,2,4 1,3,4,2 1,4,2,3 1,4,3,2 2,1,3,4 2,1,4,3 2,3,1,4 2,3,4,1 2,4,1,3 2,4,3,1 3,1,2,4 3,1,4,2 3,2,1,4 3,2,4,1 3,4,1,2 3,4,2,1 4,1,2,3 4,1,3,2 4,2,1,3 4,2,3,1 4,3,1,2 4,3,2,1
+如果1,2,3，就按顺序到下一个排序，如果已经是最后一个3,2,1了，就跳到开头
+
+
+
+
+
+
+/*
+    44ms 0.76%
+*/
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums.length>1){
+            int end = nums.length-1;
+            while(end-1>=0 && nums[end-1]>=nums[end]){
+                end--;
+            }
+            System.out.println("end");
+            System.out.println(end);
+            if(end==0){
+                Arrays.sort(nums);
+            }
+            else if(end==nums.length-1){
+                int tmp=nums[end-1];
+                nums[end-1]=nums[end];
+                nums[end]=tmp;
+            }
+            else{
+                int change = end-1;
+                System.out.println("change");
+                System.out.println(change);
+                int min = end;
+                for(int i=end; i<nums.length; i++){
+                    System.out.println("i");
+                    System.out.println(i);
+                    if(nums[i]>nums[change] && nums[i]<nums[min]){
+                        min=i;
+                        System.out.println("min");
+                        System.out.println(min);
+                    }
+                }
+                int tmp=nums[end-1];
+                nums[change]=nums[min];
+                nums[min]=tmp;
+                Arrays.sort(nums,change+1,nums.length);
+            }
+        }
+    }
+}
