@@ -1,0 +1,45 @@
+Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+You are given a target value to search. If found in the array return its index, otherwise return -1.
+
+You may assume no duplicate exists in the array.
+
+
+
+
+
+/*
+  14ms 56%
+  一开始先排除0个或1个的特殊情况，然后找到旋转的点（数列的最小值的位置）rotate，最后运用realmid（真正的mid位置）找到目标值位置
+  关键点：1. 用while(lo<hi)找到rotate的位置
+         2. 用realmid=(mid+rotate)%nums.length找到真正的中值位置
+ */
+class Solution {
+    public int search(int[] nums, int target) {
+        if(nums.length==0 || nums==null){
+            return -1;
+        }
+        if(nums.length==1){
+            if(nums[0]==target) return 0;
+        }
+        int lo=0,hi=nums.length-1;
+        int mid=lo+(hi-lo)/2;
+        while(lo<hi){
+            mid=lo+(hi-lo)/2;
+            if(nums[mid]>nums[hi]) lo=mid+1;
+            else hi=mid;
+        }
+        int rotate=lo;
+        lo=0;hi=nums.length-1;
+        while(lo<=hi){
+            mid=lo+(hi-lo)/2;
+            int realmid=(mid+rotate)%nums.length;
+            if(nums[realmid]==target) return realmid;
+            if(nums[realmid]<target) lo=mid+1;
+            else hi=mid-1;
+        }
+        return -1;
+    }
+}
