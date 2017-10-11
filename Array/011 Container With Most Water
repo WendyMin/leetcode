@@ -6,7 +6,7 @@ Note: You may not slant the container and n is at least 2.
 
 
 /*
-    11ms 20%
+    10ms 52%
     SC: O(n)
     TC: O(1)
     从头尾分别缩进
