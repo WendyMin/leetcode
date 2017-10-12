@@ -1,0 +1,65 @@
+Given an unsorted integer array, find the first missing positive integer.
+
+For example,
+Given [1,2,0] return 3,
+and [3,4,-1,1] return 2.
+
+Your algorithm should run in O(n) time and uses constant space.
+
+
+
+
+
+
+/*
+  37ms 2%
+  第一个for循环按照顺序（nums[i-1]的位置为i）将数组规整好，注意要用while，否则像{3,4,-1,1}这种，只有后面的顺序对
+  第二个for循环用来查找少的最小的正整数，并返回
+*/
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        for(int i=0; i<nums.length; i++){
+            while(nums[i]>0 && nums[i]<=nums.length && nums[nums[i]-1]!=nums[i]) swap(nums,nums[i]-1,i);
+        }
+        for(int j=0; j<nums.length; j++){
+            if(nums[j] != j+1) return j+1;
+        }
+        return nums.length+1;
+    }
+    private void swap(int[] nums, int i, int j){
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+
+
+
+
+
+/*
+    65ms 0.52%
+    将第一个for循环里的while改成了if，加了一个判断当前位置是否正确的判断，可以不用while循环
+    推测这个两个方法慢的原因是网络速度低，并不是方法的问题
+*/
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        for(int i=0; i<nums.length; i++){
+            if(i!=nums[i]-1 && nums[i]>0 && nums[i]<=nums.length && nums[i]!=nums[nums[i]-1]){
+                swap(nums, i, nums[i--]-1);
+            }
+        }
+        for(int a:nums){
+            System.out.println(a);
+        }
+        for(int j=0; j<nums.length; j++){
+            if(nums[j] != j+1) return j+1;
+        }
+        return nums.length+1;
+    }
+    private void swap(int[] nums, int i, int j){
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
