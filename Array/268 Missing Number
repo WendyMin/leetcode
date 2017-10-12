@@ -11,7 +11,7 @@ Your algorithm should run in linear runtime complexity. Could you implement it u
 
 
 /*
-  12ms 11%
+    12ms 11%
 */
 class Solution {
     public int missingNumber(int[] nums) {
@@ -20,5 +20,24 @@ class Solution {
             if(nums[i] != i) return i;
         }
         return nums.length;
+    }
+}
+
+
+
+
+
+
+/*
+    1ms 35%
+*/
+class Solution {
+    public int missingNumber(int[] nums) {
+        int sum=0;
+        for(int a:nums){
+            sum += a;
+        }
+        int realsum = (nums.length+1)*nums.length/2;
+        return realsum - sum;
     }
 }
