@@ -27,6 +27,9 @@ https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Sudoku-by-L2G-20050714
   可是这样做有一个问题，如何用while循环来完整表达流程，如何删去刚填入的数字。
   因此从discuss中得到了嵌套的方法，用true和false来判断是否应该继续循环还是删除当前填入的数字。
   用到了36题的Valid Sudoku，判断是否数独是否合理。
+  
+  第一维数组长度: data.length
+  第二维数组长度: data[0].length
 */
 class Solution {
     public void solveSudoku(char[][] board) {
