@@ -1,0 +1,77 @@
+Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
+
+The Sudoku board could be partially filled, where empty cells are filled with the character '.'.
+
+https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png
+
+A partially filled sudoku which is valid.
+
+Note:
+A valid Sudoku board (partially filled) is not necessarily solvable. Only the filled cells need to be validated.
+
+
+
+
+
+
+
+
+/*
+  32ms 68%
+  首先想到的方法是定位到一个数(第2行第5列:board[1][4])，然后分别检查它的行、列、块，是否有重复的数字，但是实现起来较为复杂，而且时间复杂度高
+  因此通过discuss发现了更简便的方法。这里的i,j并不代表一个固定的位置，而是遍历之用。
+  比如对于i=4,j=1而言，
+    第一个if判断的是board[4][1]所在的第4行board[4][:]是否用重复的，
+    第二个if判断的是board[1][4]所在的第4列board[:][4]是否有重复的，
+    第三个if判断的则是board[3][4]所在的第5块board[3][3],board[3][4],board[3,5],board[4][3],board[4][4],board[4][5],board[5][3],board[5][4],board[5][5]是否有重复的。
+*/
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        for(int i=0; i<9; i++){
+            HashSet<Character> rows = new HashSet<Character>();
+            HashSet<Character> colums = new HashSet<Character>();
+            HashSet<Character> grids = new HashSet<Character>();
+            for(int j=0; j<9; j++){
+                if(board[i][j]!='.' && !rows.add(board[i][j])){return false;}   //第1行，第2行，...，第9行
+                if(board[j][i]!='.' && !colums.add(board[j][i])){return false;} //第1列，第2列，...，第9列
+                int RowIndex = 3*(i/3);
+                int ColIndex = 3*(i%3);
+                //第1块(0,0)，第2块(0,1)，...,第9块(2,2)
+                if(board[RowIndex + j/3][ColIndex + j%3]!='.' && !grids.add(board[RowIndex + j/3][ColIndex + j%3])){return false;}  
+            }
+        }
+        return true;
+    }
+}
+
+
+
+
+
+
+
+/*
+  38ms 24%
+  在discuss中发现还有更加简单的方法，思想和代码都更加简洁。
+  它用到了一个叫做seen的HashSet，用来记录number in row/colum/grid **，表示在某一行、某一列、某一块上面存在一个数字*。
+  从第一行开始遍历，一旦发现了不是'.'(有数字)的位置，就把它所在的行、列、块及自己的信息都记录到seen中，
+  如果在遍历的过程中，发现有跟这个数字在同一行或者同一列或者同一块的相同的数字，就无法加入seen中，因此返回错误，代码结束。
+*/
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        HashSet<String> seen = new HashSet<String>();
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                char number = board[i][j];
+                if(number != '.'){
+                if (!seen.add(number + " in row " + i) ||
+                    !seen.add(number + " in column " + j) ||
+                    !seen.add(number + " in grid " + i/3 + "-" + j/3)
+                   )
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
