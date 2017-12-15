@@ -1,0 +1,32 @@
+Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation.
+
+Note:
+The given integer is guaranteed to fit within the range of a 32-bit signed integer.
+You could assume no leading zero bit in the integer’s binary representation.
+Example 1:
+Input: 5
+Output: 2
+Explanation: The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.
+Example 2:
+Input: 1
+Output: 0
+Explanation: The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0.
+
+
+
+
+/*
+  12ms 28%
+  本来打算先求出num的二进制，然后取反，最后转换成十进制，求得输出
+  后来在网上搜转二进制的过程中，只发现了String类型的转换，实现起来比较麻烦，因此就在想还有没有什么其他办法
+  从discuss后面翻到了一个想法
+  发现，5+2=7=2^3-1，1+0=1=2^1-1，即先找到比num大的2的幂次方，然后减去num再减1，即为所求
+  i为2的多少次方，算出来的2^i必须要比num大，不能相等
+  所求为2^i-num-1
+*/
+class Solution {
+    public int findComplement(int num) {
+        int i = (int)(Math.log(num)/Math.log(2)+1);
+        return (int)((long)Math.pow(2, i)-num-1);
+    }
+}
