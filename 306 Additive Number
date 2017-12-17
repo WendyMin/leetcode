@@ -25,9 +25,9 @@ How would you handle overflow for very large input integers?
   使用BigInteger存储大数
   BigInteger.add()：将BigInteger加上括号里的值
   BigInteger.substract()：将BigInterger减去括号里的值
-  BigInteger.toString()：将BigInteger转换为十进制
+  BigInteger.toString()：将BigInteger转换为十进制的String类型
   substring(0,i)表示从0~i-1截取成BigInteger
-  startsWith(n,i)：从i开始，后面数为n，无论n后面再是什么东西
+  startsWith(String n, int i)：从i开始，后面数为n，无论n后面再是什么东西
   其中i为第一个数的长度，j为第二个数的长度
 */
 import java.math.BigInteger;
