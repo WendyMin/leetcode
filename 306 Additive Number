@@ -21,9 +21,13 @@ How would you handle overflow for very large input integers?
 
 
 /*
-  9ms 9%
+  8ms 13%
   使用BigInteger存储大数
+  BigInteger.add()：将BigInteger加上括号里的值
+  BigInteger.substract()：将BigInterger减去括号里的值
+  BigInteger.toString()：将BigInteger转换为十进制
   substring(0,i)表示从0~i-1截取成BigInteger
+  其中i为第一个数的长度，j为第二个数的长度
 */
 import java.math.BigInteger;
 
