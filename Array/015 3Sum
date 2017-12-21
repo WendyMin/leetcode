@@ -17,7 +17,7 @@ A solution set is:
 
 
 /*
-	77ms 86%
+	66ms 98%
 	for循环中嵌套了001 Two Sum的方法
 	
 	List<List<Integer>> ans = new LinkedList<>();	//ArrayList<>()也可以
@@ -44,27 +44,26 @@ A solution set is:
 */
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-	if (nums == null || nums.length == 0 || nums.length < 3) return new LinkedList<>();
+        if(nums.length<3 || nums == null) return new LinkedList<>();
         Arrays.sort(nums);
-        List<List<Integer>> ans = new LinkedList<>(); 
-        for (int i = 0; i < nums.length-2; i++) {
-            if(nums[i] > 0) break;
-            if(i!=0 && nums[i]==nums[i-1]) continue;
-            int left = i + 1;
-            int right = nums.length - 1;
-            while(left < right){
-                 int sum = nums[i] + nums[left] + nums[right];
-                 if(sum < 0)	left++;
-                 else if(sum > 0) right--;
-                 else{
-                      ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                      while(nums[left+1] == nums[left] && left+1 < right) left++;
-                      while(nums[right-1] == nums[right] && left < right-1) right--;
-                      left++;
-                      right--;
-                      }
+        List<List<Integer>> ans = new LinkedList<>();
+        for(int i=0; i<nums.length-2; i++){
+            if(nums[i]>0) break;
+            if(i!=0 && nums[i-1]==nums[i]) continue;
+            int lo = i+1, hi = nums.length-1;
+            while(lo<hi){
+                int sum = nums[i]+nums[lo]+nums[hi];
+                if(sum < 0) lo++;
+                else if(sum>0) hi--;
+                else{
+                    ans.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
+                    while(nums[lo] == nums[lo+1] && lo+1<hi) lo++;
+                    while(nums[hi] == nums[hi-1] && lo<hi-1) hi--;
+                    lo++;
+                    hi--;
+                }
             }
-        }
+        }        
         return ans;
     }
 }
