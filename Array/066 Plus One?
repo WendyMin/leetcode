@@ -14,41 +14,10 @@ The digits are stored such that the most significant digit is at the head of the
 
 
 
-
-
 /*
   0ms 30%
-*/
-class Solution {
-    public int[] plusOne(int[] digits) {
-        for(int i=digits.length-1;i>=0;i--){
-            if(digits[i]<9){
-                digits[i]++;
-                return digits;
-            }
-            else digits[i]=0;
-        }
-        int[] ans=new int[digits.length+1];
-         for(int j=0;j<digits.length;j++){
-             ans[j+1]=digits[j];
-         }
-        ans[0]=1;
-        return ans;
-    }
-}
-
-
-
-
-
-
-
-
-
-/*
-  0ms 30%
-  Discuss和Solution解法，唯一不同的地方在于没有初始化最后的ans，但也可以返回正确答案，这是为什么？
-*/
+  一开始用int，发现有的数太大了，后来用long，发现还是位数不够，因此就思考别的方法
+  没有初始化最后的ans，但也可以返回正确答案，因为如果代码运行到了最后的ans部分，那么肯定第一位是1，其他位都是0了
 class Solution {
     public int[] plusOne(int[] digits) {
         for(int i=digits.length-1;i>=0;i--){
